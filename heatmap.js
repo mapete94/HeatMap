@@ -4,6 +4,7 @@
 var url ="http://michaelandrewpeterson.com/coordinates/";
 var body = {};
 var latLng = [];
+var heat = null;
 // instantiate a map to be centered on raleigh
 var mymap = L.map('mapid').setView([35.77, -78.63], 13);
 //citing source of map data etc
@@ -15,7 +16,6 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
     id: 'mapbox.streets'
 }).addTo(mymap);
 
-var heat = null;
 // function called when map movement ends
 function onMoveEnd(e){
     var bounds = mymap.getBounds();
@@ -46,3 +46,10 @@ function drawHeatMap(result) {
 }
 
 mymap.on('moveend',onMoveEnd);
+
+// added bounds so user can't scroll to lat lng over 180 etc
+//thhose don't exist in db
+var southWest = L.latLng(-180, -250),
+    northEast = L.latLng(180, 250),
+    bounds = L.latLngBounds(southWest, northEast);
+mymap.setMaxBounds(bounds);
