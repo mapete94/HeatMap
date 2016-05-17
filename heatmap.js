@@ -41,7 +41,7 @@ function drawHeatMap(result) {
         heat.setLatLngs(latLng);
     }
     //if heat map is not made yet draw it with lat lng recieved    
-    else heat= L.heatLayer(latLng,{max: 5000, maxZoom: 0}).addTo(mymap);
+    else heat= L.heatLayer(latLng,{max: 2000, maxZoom: 0}).addTo(mymap);
 
 }
 
